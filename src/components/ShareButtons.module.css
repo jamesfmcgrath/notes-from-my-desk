@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 1px solid var(--border);
+  padding: 0.5rem;
+  border-radius: 50%;
+  color: var(--foreground);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--muted-background);
+  color: var(--primary);
+  border-color: var(--primary);
+}
