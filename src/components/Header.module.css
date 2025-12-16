@@ -34,6 +34,16 @@
   gap: 2rem;
 }
 
+.toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  color: var(--foreground);
+  cursor: pointer;
+  z-index: 60;
+}
+
 .link {
   font-size: 0.95rem;
   font-weight: 500;
@@ -43,4 +53,37 @@
 
 .link:hover {
   color: var(--foreground);
+}
+
+@media (max-width: 768px) {
+  .toggle {
+    display: block;
+  }
+
+  .nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%; /* Full width for mobile elegance */
+    height: 100vh;
+    background-color: var(--background);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    transform: translateX(100%);
+    transition: transform var(--transition-normal);
+    z-index: 55;
+    padding: 2rem;
+  }
+
+  /* When open */
+  .nav.open {
+    transform: translateX(0);
+  }
+
+  .link {
+    font-size: 1.5rem; /* Larger font for mobile */
+  }
 }
