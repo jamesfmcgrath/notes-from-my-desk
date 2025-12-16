@@ -7,23 +7,9 @@ import { Post, PostMetadata } from './types';
 
 const postsDirectory = path.join(process.cwd(), 'posts');
 
-export function getAdjacentPosts(slug: string): { prev: PostMetadata | null; next: PostMetadata | null } {
-  const allPosts = getSortedPostsData();
-  const index = allPosts.findIndex((post) => post.slug === slug);
-
-  if (index === -1) {
-    return { prev: null, next: null };
-  }
-
-  // Next post is index - 1 (because sorted descending by date)
-  // Prev post is index + 1
-  const next = index > 0 ? allPosts[index - 1] : null;
-  const prev = index < allPosts.length - 1 ? allPosts[index + 1] : null;
-
-  return { prev, next };
-}
-
-export function getSortedPostsData(): PostMetadata[] {
+// Default: only show published posts (date <= today).
+// Pass { includeFuture: true } to see all posts.
+export function getSortedPostsData({ includeFuture = false }: { includeFuture?: boolean } = {}): PostMetadata[] {
   // Get file names under /posts
   if (!fs.existsSync(postsDirectory)) {
     return [];
@@ -50,14 +36,39 @@ export function getSortedPostsData(): PostMetadata[] {
       };
     });
 
+  // Filter out future posts unless requested
+  const now = new Date();
+  const today = now.toISOString().split('T')[0];
+
+  const filteredPosts = includeFuture
+    ? allPostsData
+    : allPostsData.filter(post => post.date <= today);
+
   // Sort posts by date
-  return allPostsData.sort((a, b) => {
+  return filteredPosts.sort((a, b) => {
     if (a.date < b.date) {
       return 1;
     } else {
       return -1;
     }
   });
+}
+
+export function getAdjacentPosts(slug: string): { prev: PostMetadata | null; next: PostMetadata | null } {
+  // Only navigate between visible posts
+  const allPosts = getSortedPostsData();
+  const index = allPosts.findIndex((post) => post.slug === slug);
+
+  if (index === -1) {
+    return { prev: null, next: null };
+  }
+
+  // Next post is index - 1 (because sorted descending by date)
+  // Prev post is index + 1
+  const next = index > 0 ? allPosts[index - 1] : null;
+  const prev = index < allPosts.length - 1 ? allPosts[index + 1] : null;
+
+  return { prev, next };
 }
 
 export function getAllPostSlugs() {
