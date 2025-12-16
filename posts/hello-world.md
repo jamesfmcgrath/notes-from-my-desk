@@ -1,8 +1,8 @@
 ---
-title: "Hello World: Integrating AI with Craftsmanship"
-date: "2025-12-16"
-excerpt: "Welcome to my new blog. This is the first post exploring the intersection of engineering and writing."
-coverImage: "/images/hello-world.jpg"
+title: 'Hello World: Integrating AI with Craftsmanship'
+date: '2025-12-13'
+excerpt: 'Welcome to my new blog. This is the first post exploring the intersection of engineering and writing.'
+coverImage: '/images/hello-world.jpg'
 ---
 
 # Hello World
@@ -16,6 +16,7 @@ I believe that writing is the clearest way to think. By articulating my experien
 ### Tech Stack
 
 This site is built with:
+
 - **Next.js**: For performance and SEO.
 - **Vanilla CSS**: For a bespoke, premium aesthetic.
 - **Markdown**: For a seamless writing experience.
